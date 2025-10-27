@@ -1,0 +1,44 @@
+"use client";
+
+import React from "react";
+import { ControlledSheetDemo, ProductCard, ButtonDemo } from "@/components/index";
+import { useStripeContext } from "@/context/stripeContext";
+import Link from "next/link";
+
+const CartSheet = () => {
+  const { isCartSheetOpen, setIsCartSheetOpen, products } = useStripeContext();
+  return (
+    <ControlledSheetDemo
+      title="Menu"
+      description="Lorem ipsum dolor."
+      side="right"
+      contentClassName=" overflow-y-auto "
+      trigger=" "
+      isOpen={isCartSheetOpen}
+      setIsOpen={setIsCartSheetOpen}
+    >
+      {(onClose) => (
+        <div className="p-4">
+          <div>
+            {products
+              .filter((product) => product.isInCart)
+              .map((product) => {
+                return (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    className="[&>.card-header]:max-w-[100px] [&_.card-btns]:hidden !px-2 !py-3 flex-row [&>.card-header]:flex-1 [&>.card-body]:flex-1 mb-[1rem] [&_.card-price]:mb-0"
+                  />
+                );
+              })}
+          </div>
+          <Link href="/cart" onClick={()=>onClose()} className="">
+            <ButtonDemo className="w-full" text={`Cart`}  />
+          </Link>
+        </div>
+      )}
+    </ControlledSheetDemo>
+  );
+};
+
+export default CartSheet;
