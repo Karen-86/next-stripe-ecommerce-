@@ -33,6 +33,11 @@ export const checkoutAction = async ({ products }: { products: ProductProps[] })
       mode: "payment",
       success_url: `${baseUrl}/success`,
       cancel_url: `${baseUrl}/cart`,
+      // customer_email: user.email,
+      // metadata: {
+      //   userId: user.userId,
+      // },
+      // mode: 'subscription'
     });
     
     return { success: true, url: session.url };
